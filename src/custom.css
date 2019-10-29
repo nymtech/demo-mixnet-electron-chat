@@ -1,0 +1,69 @@
+/* html {
+    overflow: hidden;
+} */
+
+/* body {
+    overflow: hidden;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    background: gray;
+} */
+
+#noticeDiv {
+    margin: 10pt;
+    text-align: center;
+}
+
+.centeredDiv {
+    text-align: center;
+}
+
+#messages {
+    text-align: center;
+}
+
+#messagesList {
+    margin: 15pt;
+    display: inline-block;
+}
+
+.chatMessage {
+    text-align: left;
+    margin-top: 15pt;
+    margin-bottom: 15pt;
+    width: 80%;
+    /* position: relative; */
+    padding: 5pt;
+	border-radius: .4em;
+}
+
+.chatMessage.incoming {
+    background: rgba(37, 37, 37, 0.4);
+    margin-right: 40pt;
+    
+}
+
+.chatMessage.reply {
+    background: rgba(244, 76, 56, 0.7);
+    margin-left: 40pt
+}
+
+
+#mainWrapper {
+    display: flex;
+    height: 100vh;
+    flex-direction: column;
+}
+  
+#log {
+    overflow: auto;
+    padding: 15px;
+    flex: 1;
+}
+  
+#inputBox {
+    padding: 15px;
+}
+  

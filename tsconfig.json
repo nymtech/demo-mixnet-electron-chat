@@ -1,0 +1,33 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+      "target": "es2019",
+      "moduleResolution": "node",
+      "pretty": true,
+      "newLine": "LF",
+      "allowSyntheticDefaultImports": true,
+      "strict": true,
+      "noUnusedLocals": true,
+      "noUnusedParameters": true,
+      "sourceMap": true,
+      "skipLibCheck": true,
+      "jsx": "preserve",
+      "allowJs": true,
+  }
+}
+
+// {
+//   "compilerOptions": {
+//     "module": "commonjs",
+//     "noImplicitAny": true,
+//     "sourceMap": true,
+//     "outDir": "dist",
+//     "baseUrl": ".",
+//     "paths": {
+//       "*": ["node_modules/*"]
+//     }
+//   },
+//   "include": [
+//     "src/**/*"
+//   ]
+// }

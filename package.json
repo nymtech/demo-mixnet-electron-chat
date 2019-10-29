@@ -1,0 +1,76 @@
+{
+  "name": "mixnet-electron-client",
+  "version": "0.0.1",
+  "author": {
+    "name": "Nym",
+    "email": "andrew@nymtech.net",
+    "url": "https://www.nymtech.net"
+  },
+  "description": "",
+  "scripts": {
+    "prebuild": "if cd nym-mixnet; then git pull; else git clone https://github.com/nymtech/nym-mixnet.git; fi",
+    "build": "webpack --mode development --config webpack.config.js && yarn prepare-loopix",
+    "prestart": "yarn build",
+    "start": "electron ./dist/main.js",
+    "pack": "yarn build && electron-builder --dir",
+    "dist": "yarn build && electron-builder",
+    "prepare-loopix": "cd nym-mixnet/cmd/loopix-client && go build -o ../../../dist/loopix-client"
+  },
+  "main": "./dist/main.js",
+  "build": {
+    "extends": null,
+    "copyright": "Copyright © 2019 ${author}",
+    "appId": "mixnetElectronChatClient",
+    "mac": {
+      "category": "public.app-category.social-networking"
+    },
+    "linux": {
+      "target": [
+        "AppImage"
+      ]
+    },
+    "files": [
+      "dist/*",
+      "dist/**/*"
+    ],
+    "directories": {
+      "output": "build"
+    }
+  },
+  "repository": "https://github.com/nymtech/demo-mixnet-chat-client",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "electron": "^7.0.0",
+    "electron-builder": "^21.2.0",
+    "tslint": "^5.20.0",
+    "tslint-config-standard": "^8.0.1",
+    "tslint-loader": "^3.5.4"
+  },
+  "dependencies": {
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-proposal-class-properties": "^7.5.5",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-typescript": "^7.6.0",
+    "@babel/runtime": "^7.6.3",
+    "@types/semantic-ui": "^2.2.7",
+    "babel-loader": "^8.0.6",
+    "base64url": "^3.0.1",
+    "copy-webpack-plugin": "^5.0.4",
+    "css-loader": "^3.2.0",
+    "file-loader": "^4.2.0",
+    "fix-path": "^2.1.0",
+    "get-port": "^5.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "html-webpack-tags-plugin": "^2.0.17",
+    "mini-css-extract-plugin": "^0.8.0",
+    "semantic-ui-css": "^2.4.1",
+    "standard": "^14.3.1",
+    "standard-loader": "^7.0.0",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.6.4",
+    "url-loader": "^2.2.0",
+    "webpack": "^4.41.2",
+    "webpack-cli": "^3.3.9"
+  }
+}
