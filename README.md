@@ -1,4 +1,4 @@
-# demo-mixnet-chat-client [electron-app branch]
+# demo-mixnet-electron-chat
 
 **Note: don't depend on this for anything serious, it's a demo rather than a production application, with an incomplete cryptographic implementation.**
 
