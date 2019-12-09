@@ -28,56 +28,56 @@ async function onReady() {
 	}
 
 	let wasIDLoaded = false;
-	let loopixID: string;
+	let nymID: string;
 	if (process.argv.length > 2) {
-		loopixID = process.argv[2];
+		nymID = process.argv[2];
 	} else {
 		// see if anything is saved locally
 		try {
 			const data: string | Buffer = fs.readFileSync("savedID.nymchat");
 			if (data.length > 0) {
 				console.log("Loaded ID from the file!");
-				loopixID = data.toString();
+				nymID = data.toString();
 				wasIDLoaded = true;
 			} else {
 				console.log("Generated fresh ID!");
-				loopixID = makeID(16);
+				nymID = makeID(16);
 			}
 		} catch (e) {
 			console.log("Generated fresh ID!");
-			loopixID = makeID(16);
+			nymID = makeID(16);
 		}
 	}
-	let loopixPort: string;
+	let nymPort: string;
 	if (process.argv.length > 3) {
-		loopixPort = process.argv[3];
+		nymPort = process.argv[3];
 	} else {
-		const loopixPortNum = await getPort();
-		loopixPort = loopixPortNum.toString();
+		const nymPortNum = await getPort();
+		nymPort = nymPortNum.toString();
 	}
 
-	console.log(`Chosen loopix client ID: ${loopixID}`);
-	console.log(`Chosen port: ${loopixPort}`);
+	console.log(`Chosen nym client ID: ${nymID}`);
+	console.log(`Chosen port: ${nymPort}`);
 
 	if (!wasIDLoaded) {
 		// save the id for future use, if exists, simply overwrite it
-		fs.writeFileSync("savedID.nymchat", loopixID);
+		fs.writeFileSync("savedID.nymchat", nymID);
 		console.log("Saved the id!");
 
-		const out = execFileSync(path.resolve(__dirname, "loopix-client"), ["init", "--id", loopixID]);
+		const out = execFileSync(path.resolve(__dirname, "nym-mixnet-client"), ["init", "--id", nymID]);
 		console.log(out.toString());
 	}
 
-	const loopixClient = execFile(
-		path.resolve(__dirname, "loopix-client"),
-		["socket", "--id", loopixID, "--socket", "websocket", "--port", loopixPort],
+	const nymClient = execFile(
+		path.resolve(__dirname, "nym-mixnet-client"),
+		["socket", "--id", nymID, "--socket", "websocket", "--port", nymPort],
 		{},
 		(
 			(error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
 				if (error) {
 					if (error.killed === true) {
 						// we killed it so we can ignore the error
-						console.log("We killed the loopix-client process ourselves");
+						console.log("Killed nym-mixnet-client process.");
 					} else {
 						throw error;
 					}
@@ -85,13 +85,13 @@ async function onReady() {
 			}),
 		);
 
-	loopixClient.on("error", (err: Error) => {
-		throw new Error(`Error when handling loopix-client: ${err}`);
+	nymClient.on("error", (err: Error) => {
+		throw new Error(`Error when handling nym-mixnet-client: ${err}`);
 	});
 
 	// listen for port requests from window we're about to spawn
 	ipcMain.once("port", (event) => {
-		event.returnValue = loopixPort;
+		event.returnValue = nymPort;
 	});
 
 	// Create the browser window.
@@ -117,7 +117,7 @@ async function onReady() {
 	});
 
 	app.on("quit", () => {
-		loopixClient.kill("SIGINT");
+		nymClient.kill("SIGINT");
 	});
 }
 

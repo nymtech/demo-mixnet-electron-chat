@@ -22,7 +22,7 @@ If you packaged the app, starting it is as simple as running the created binary:
 
 By default it will look for the `savedID.nymchat` file in the directory from which the application was run. If it exists, the specified id will be used to lookup public/private mixnet keypairs on your local machine.
 
-Otherwise, a random id will be generated and corresponding public/private keypairs will be created and stored on your local machine. If you want to see those, have a look in `~/.loopix` - exact locations are noted upon keypair generation. The new `savedID.nymchat` will also be created.
+Otherwise, a random id will be generated and corresponding public/private keypairs will be created and stored on your local machine. If you want to see those, have a look in `~/.nym` - exact locations are noted upon keypair generation. The new `savedID.nymchat` will also be created.
 
 **Please do note, you should not start more than a single instance from the same directory unless you know exactly what you're doing.**
 
@@ -30,7 +30,7 @@ Otherwise, a random id will be generated and corresponding public/private keypai
 
 When the app is started using the standalone binary, it can accept two optional arguments to adjust its default behaviour.
 
-The first arguments allows you to supersede the loopix client id being used. However, it is then your responsibility to ensure the appropriate keys and configuration file exist in `~/.loopix`
+The first arguments allows you to supersede the nym client id being used. However, it is then your responsibility to ensure the appropriate keys and configuration file exist in `~/.nym`
 
 The second argument, which is expected to be a number between 1024 and 49151 will change the port used for websocket communcation of the electron application with the mixnet client. By default a random, open port is chosen.
 

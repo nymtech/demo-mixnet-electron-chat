@@ -9,12 +9,12 @@
   "description": "",
   "scripts": {
     "prebuild": "if cd nym-mixnet; then git pull; else git clone https://github.com/nymtech/nym-mixnet.git; fi",
-    "build": "webpack --mode development --config webpack.config.js && yarn prepare-loopix",
+    "build": "webpack --mode development --config webpack.config.js && yarn prepare-nym",
     "prestart": "yarn build",
     "start": "electron ./dist/main.js",
     "pack": "yarn build && electron-builder --dir",
     "dist": "yarn build && electron-builder",
-    "prepare-loopix": "cd nym-mixnet/cmd/loopix-client && go build -o ../../../dist/loopix-client"
+    "prepare-nym": "cd nym-mixnet/cmd/nym-mixnet-client && go build -o ../../../dist/nym-mixnet-client"
   },
   "main": "./dist/main.js",
   "build": {
