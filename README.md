@@ -18,7 +18,7 @@ From the top-level directory, `yarn install --production=false` will download al
 
 ## Running it
 
-If you packaged the app, starting it is as simple as running the created binary: `./build/mixnet-electron-client-0.0.1.AppImage`. Otherwise if you used `yarn build`, you need to call `yarn start` now.
+If you packaged the app, starting it is as simple as running the created binary: `./build/mixnet-electron-client-0.0.2.AppImage`. Otherwise if you used `yarn build`, you need to call `yarn start` now.
 
 By default it will look for the `savedID.nymchat` file in the directory from which the application was run. If it exists, the specified id will be used to lookup public/private mixnet keypairs on your local machine.
 
@@ -34,7 +34,7 @@ The first arguments allows you to supersede the nym client id being used. Howeve
 
 The second argument, which is expected to be a number between 1024 and 49151 will change the port used for websocket communcation of the electron application with the mixnet client. By default a random, open port is chosen.
 
-So for example, to run it with hardcoded id `Alice` on port `9001`, you would call it with: `./build/mixnet-electron-client-0.0.1.AppImage Alice 9001`.
+So for example, to run it with hardcoded id `Alice` on port `9001`, you would call it with: `./build/mixnet-electron-client-0.0.2.AppImage Alice 9001`.
 
 ### Chat session
 
