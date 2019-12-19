@@ -11,8 +11,7 @@ const base64url = nodeRequire('base64url');
 interface ElectronChatMessage {
 	content: string;
 	senderPublicKey: string;
-	senderProviderPublicKey: string;
-}
+	// senderProviderPublicKey: string; // re-enable when we want to run with multiple providers
 }
 
 const localhost: string = document.location.host || "localhost";
@@ -41,7 +40,6 @@ class SocketConnection {
 		conn.onmessage = this.onSocketMessage;
 		conn.onerror = (ev: Event) => console.error("Socket error: ", ev);
 		conn.onopen = this.onSocketOpen.bind(this);
-
 		this.clients = [];
 		this.ownDetails = {} as ClientData;
 		this.conn = conn;
@@ -77,8 +75,8 @@ class SocketConnection {
 
 		const fullMessage: ElectronChatMessage = {
 			content: message,
-			senderProviderPublicKey: this.ownDetails.provider.pubKey,
 			senderPublicKey: this.ownDetails.pubKey,
+			// senderProviderPublicKey: this.ownDetails.provider.pubKey,
 		};
 
 		const sendMsg = JSON.stringify({
@@ -125,18 +123,14 @@ class SocketConnection {
 	}
 
 	private handleFetchResponse(fetchData: any) {
-		const messages = fetchData.fetch.messages;
+		const messages = fetchData.messages;
 
 		for (const rawMsg of messages) {
-			// TODO: FIXME: for some reason at some point there's an invalid character attached here with ascii code 1...
 			let b64Decoded: string = base64url.decode(rawMsg);
-			if (b64Decoded.charCodeAt(0) < 32) {
-				b64Decoded = b64Decoded.substring(1);
-			}
 			const msg = JSON.parse(b64Decoded) as ElectronChatMessage;
 
 			createChatMessage(
-				`??? - ${msg.senderPublicKey.substring(0, 8)}... (Provider: ${msg.senderProviderPublicKey.substring(0, 8)}...)`,
+				`??? - ${msg.senderPublicKey.substring(0, 8)}...`,
 				msg.content,
 			);
 		}
@@ -162,10 +156,9 @@ class SocketConnection {
 		});
 	}
 
-	private displayOwnDetails(ownDetails: ClientData) {
-		let detailsString = "Your public key is: " + ownDetails.pubKey;
-		detailsString += "\n Your provider's public key is: " + ownDetails.provider.pubKey;
 	private displayOwnDetails(ownDetails: any) {
+		let detailsString = "Your public key is: " + ownDetails.address;
+		// detailsString += "\n Your provider's public key is: " + ownDetails.provider.pubKey;
 		createChatMessage("SYSTEM INFO", detailsString, true);
 	}
 	// had to define it as an arrow function otherwise I couldn't call this.handle...
