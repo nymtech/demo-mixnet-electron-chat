@@ -40,17 +40,17 @@ const commonConfig = {
         loader: 'babel-loader'
       },
       {
-        test:/\.css$/,
+        test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
         test: /\.s[a|c]ss$/,
         loader: 'sass-loader!style-loader!css-loader'
-    },
-    {
+      },
+      {
         test: /\.(jpg|png|gif|jpeg|woff|woff2|eot|ttf|svg)$/,
         loader: 'url-loader?limit=100000'
-    }
+      }
     ]
   },
 }
@@ -84,6 +84,9 @@ module.exports = [
           },
           {
             from: 'src/custom.css',
+          },
+          {
+            from: 'nym-client-binaries/nym_client_linux',
           },
           {
             from: 'src/assets',
