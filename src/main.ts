@@ -22,6 +22,14 @@ function makeID(length: number): string {
 	return result;
  }
 
+function nymClientBinary() {
+		switch (process.platform){
+			case "darwin": return "nym_client_osx";
+			case "linux": return "nym_client_linux";
+			case "win32": return "nym_client_windows";
+		}
+}
+
 async function onReady() {
 	if (app.isPackaged) {
 		process.argv.unshift(""); // temp workaround
@@ -64,17 +72,20 @@ async function onReady() {
 		fs.writeFileSync("savedID.nymchat", nymID);
 		console.log("Saved the id!");
 
-		const out = execFileSync(path.resolve(__dirname, "nym-mixnet-client"), ["init", "--id", nymID]);
+		const out = execFileSync(path.resolve(__dirname, nymClientBinary()), ["init", "--id", nymID]);
 		console.log(out.toString());
 	}
 
+	console.log(path.resolve(__dirname, nymClientBinary()));
+	console.log(["websocket", "--id", nymID, "--port", nymPort]);
 	const nymClient = execFile(
-		path.resolve(__dirname, "nym-mixnet-client"),
-		["socket", "--id", nymID, "--socket", "websocket", "--port", nymPort],
+		path.resolve(__dirname, nymClientBinary()),
+		["websocket", "--id", nymID, "--port", nymPort],
 		{},
 		(
 			(error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
 				if (error) {
+					console.log("MY ERROR" + error);
 					if (error.killed === true) {
 						// we killed it so we can ignore the error
 						console.log("Killed nym-mixnet-client process.");
