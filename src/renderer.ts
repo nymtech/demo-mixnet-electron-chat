@@ -28,15 +28,15 @@ interface ClientData {
 
 const localhost: string = document.location.host || "localhost";
 const fetchMsg = JSON.stringify({
-	fetch: {},
+	type: "fetch",
 });
 
 const getRecipientsMsg = JSON.stringify({
-	clients: {},
+	type: "getClients",
 });
 
 const getDetailsMsg = JSON.stringify({
-	details: {},
+	type: "ownDetails",
 });
 
 
