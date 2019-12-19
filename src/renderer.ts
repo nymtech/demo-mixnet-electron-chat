@@ -75,15 +75,14 @@ class SocketConnection {
 
 		const fullMessage: ElectronChatMessage = {
 			content: message,
-			senderPublicKey: this.ownDetails.pubKey,
 			// senderProviderPublicKey: this.ownDetails.provider.pubKey,
+			senderPublicKey: this.ownDetails,
 		};
 
 		const sendMsg = JSON.stringify({
-				send: {
-					message: btoa(JSON.stringify(fullMessage)),
-					recipient: selectedRecipient,
-				},
+				type: "send",
+				message: JSON.stringify(fullMessage),
+				recipient_address: selectedRecipient,
 		});
 
 		this.conn.send(sendMsg);
@@ -141,7 +140,7 @@ class SocketConnection {
 			$("#recipientSelector").removeClass("disabled");
 		}
 
-		const availableClients = clientsDataRaw.clients.clients as ClientData[];
+		const availableClients = clientsDataRaw.clients;
 		// update our current list
 		this.clients = availableClients;
 
@@ -165,22 +164,33 @@ class SocketConnection {
 	private onSocketMessage = (ev: MessageEvent): void => {
 		const receivedData = JSON.parse(ev.data);
 
-		if (receivedData.hasOwnProperty("fetch")) {
-			return this.handleFetchResponse(receivedData);
-		} else if (receivedData.hasOwnProperty("clients")) {
-			return this.handleClientsResponse(receivedData);
-		} else if (receivedData.hasOwnProperty("details")) {
-			this.ownDetails = receivedData.details.details;
-			// fix up encoding (from stdEncoding to urlEncoding, which is currently used by the mixes)
-			this.ownDetails.id = base64url.fromBase64(this.ownDetails.id);
-			this.ownDetails.pubKey = base64url.fromBase64(this.ownDetails.pubKey);
-			this.ownDetails.provider.id = base64url.fromBase64(this.ownDetails.provider.id);
-			this.ownDetails.provider.pubKey = base64url.fromBase64(this.ownDetails.provider.pubKey);
+		switch(receivedData.type) {
+			case "fetch": return this.handleFetchResponse(receivedData);
+			case "getClients": return this.handleClientsResponse(receivedData);
+			case "ownDetails":
+				this.ownDetails = receivedData.address
+				return this.displayOwnDetails(receivedData);
 
-			return this.displayOwnDetails(this.ownDetails);
-		} else if (receivedData.hasOwnProperty("send")) {
-			console.log("received send confirmation");
+			case "send": console.log("received send confirmation"); return;
 		}
+
+
+		// if (receivedData.hasOwnProperty("fetch")) {
+		// 	return this.handleFetchResponse(receivedData);
+		// } else if (receivedData.hasOwnProperty("clients")) {
+		// 	return this.handleClientsResponse(receivedData);
+		// } else if (receivedData.hasOwnProperty("details")) {
+		// 	this.ownDetails = receivedData.details.details;
+		// 	// fix up encoding (from stdEncoding to urlEncoding, which is currently used by the mixes)
+		// 	this.ownDetails.id = base64url.fromBase64(this.ownDetails.id);
+		// 	this.ownDetails.pubKey = base64url.fromBase64(this.ownDetails.pubKey);
+		// 	this.ownDetails.provider.id = base64url.fromBase64(this.ownDetails.provider.id);
+		// 	this.ownDetails.provider.pubKey = base64url.fromBase64(this.ownDetails.provider.pubKey);
+		//
+		// 	return this.displayOwnDetails(this.ownDetails);
+		// } else if (receivedData.hasOwnProperty("send")) {
+		// 	console.log("received send confirmation");
+		// }
 
 		console.log("Received unknown response!");
 		console.log(receivedData);
@@ -196,8 +206,8 @@ function updateSenderDivider(displayedName: string) {
 	$("#senderDivider").html("Sending to " + displayedName);
 }
 
-function formatDisplayedClient(client: ClientData): string {
-	return "??? - " + client.id.substring(0, 8) + "...";
+function formatDisplayedClient(client: string): string {
+	return "??? - " + client.substring(0, 8) + "...";
 }
 
 function createChatMessage(senderID: string, content: string, isReply: boolean = false) {
