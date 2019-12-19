@@ -13,17 +13,6 @@ interface ElectronChatMessage {
 	senderPublicKey: string;
 	senderProviderPublicKey: string;
 }
-
-// tslint:disable-next-line: interface-name
-interface ClientData {
-	id: string;
-	pubKey: string;
-	provider: {
-		id: string;
-		host: string;
-		port: string;
-		pubKey: string;
-	};
 }
 
 const localhost: string = document.location.host || "localhost";
