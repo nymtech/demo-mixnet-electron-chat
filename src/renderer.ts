@@ -33,7 +33,7 @@ class SocketConnection {
 	private conn: WebSocket;
 	private ticker: number;
 	private clients: ClientData[];
-	private ownDetails: ClientData;
+	private ownDetails: any;
 
 	constructor(port: number) {
 		const conn = new WebSocket(`ws://${localhost}:${port}/mix`);
@@ -165,6 +165,7 @@ class SocketConnection {
 	private displayOwnDetails(ownDetails: ClientData) {
 		let detailsString = "Your public key is: " + ownDetails.pubKey;
 		detailsString += "\n Your provider's public key is: " + ownDetails.provider.pubKey;
+	private displayOwnDetails(ownDetails: any) {
 		createChatMessage("SYSTEM INFO", detailsString, true);
 	}
 	// had to define it as an arrow function otherwise I couldn't call this.handle...
