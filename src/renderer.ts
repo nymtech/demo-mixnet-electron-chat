@@ -80,9 +80,9 @@ class SocketConnection {
 		};
 
 		const sendMsg = JSON.stringify({
-				type: "send",
-				message: JSON.stringify(fullMessage),
-				recipient_address: selectedRecipient,
+			type: "send",
+			message: JSON.stringify(fullMessage),
+			recipient_address: selectedRecipient,
 		});
 
 		this.conn.send(sendMsg);
@@ -145,7 +145,7 @@ class SocketConnection {
 		this.clients = availableClients;
 
 		const valuesArray = availableClients.map((client, idx) => {
-			return {name: formatDisplayedClient(client), value: idx};
+			return { name: formatDisplayedClient(client), value: idx };
 		});
 
 		$("#recipientSelector").dropdown({
@@ -164,7 +164,7 @@ class SocketConnection {
 	private onSocketMessage = (ev: MessageEvent): void => {
 		const receivedData = JSON.parse(ev.data);
 
-		switch(receivedData.type) {
+		switch (receivedData.type) {
 			case "fetch": return this.handleFetchResponse(receivedData);
 			case "getClients": return this.handleClientsResponse(receivedData);
 			case "ownDetails":
@@ -173,24 +173,6 @@ class SocketConnection {
 
 			case "send": console.log("received send confirmation"); return;
 		}
-
-
-		// if (receivedData.hasOwnProperty("fetch")) {
-		// 	return this.handleFetchResponse(receivedData);
-		// } else if (receivedData.hasOwnProperty("clients")) {
-		// 	return this.handleClientsResponse(receivedData);
-		// } else if (receivedData.hasOwnProperty("details")) {
-		// 	this.ownDetails = receivedData.details.details;
-		// 	// fix up encoding (from stdEncoding to urlEncoding, which is currently used by the mixes)
-		// 	this.ownDetails.id = base64url.fromBase64(this.ownDetails.id);
-		// 	this.ownDetails.pubKey = base64url.fromBase64(this.ownDetails.pubKey);
-		// 	this.ownDetails.provider.id = base64url.fromBase64(this.ownDetails.provider.id);
-		// 	this.ownDetails.provider.pubKey = base64url.fromBase64(this.ownDetails.provider.pubKey);
-		//
-		// 	return this.displayOwnDetails(this.ownDetails);
-		// } else if (receivedData.hasOwnProperty("send")) {
-		// 	console.log("received send confirmation");
-		// }
 
 		console.log("Received unknown response!");
 		console.log(receivedData);
