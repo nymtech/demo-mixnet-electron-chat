@@ -8,13 +8,11 @@
   },
   "description": "",
   "scripts": {
-    "prebuild": "if cd nym-mixnet; then git pull; else git clone https://github.com/nymtech/nym-mixnet.git; fi",
-    "build": "webpack --mode development --config webpack.config.js && yarn prepare-nym",
+    "build": "webpack --mode development --config webpack.config.js",
     "prestart": "yarn build",
     "start": "electron ./dist/main.js",
     "pack": "yarn build && electron-builder --dir",
-    "dist": "yarn build && electron-builder",
-    "prepare-nym": "cd nym-mixnet/cmd/nym-mixnet-client && go build -o ../../../dist/nym-mixnet-client"
+    "dist": "yarn build && electron-builder"
   },
   "main": "./dist/main.js",
   "build": {
