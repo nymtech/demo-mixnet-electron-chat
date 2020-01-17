@@ -2,15 +2,15 @@
 <html lang="en">
 
 <head>
-    <script>
+	<script>
 		// required if you want to use node modules alongside jquery
-        window.nodeRequire = require;
-        delete window.require;
-        delete window.exports;
-        delete window.module;
-    </script>
-    <script src="jquery-3.4.1.min.js"></script>
-    <title>Chat Example</title>
+		window.nodeRequire = require;
+		delete window.require;
+		delete window.exports;
+		delete window.module;
+	</script>
+	<script src="jquery-3.4.1.min.js"></script>
+	<title>Chat Example</title>
 </head>
 
 <body>
@@ -35,7 +35,8 @@
 
 			<div class="ui horizontal divider" id="senderDivider">Sending to ... &lt;unknown&gt; </div>
 			<div class="ui fluid action input">
-				<button id="getClients" class="ui teal icon button left attached" data-tooltip="Refresh list of recipients" data-position="top left">
+				<button id="getClients" class="ui teal icon button left attached disabled"
+					data-tooltip="Refresh list of recipients" data-position="top left">
 					<i class="redo alternate icon"></i>
 				</button>
 
@@ -47,8 +48,8 @@
 
 				<input type="text" placeholder="Type a message" id="msgInput">
 				<button class="ui teal right labeled icon button" id="sendBtn">
-						Send
-					<i class="reply icon "></i> 
+					Send
+					<i class="reply icon "></i>
 				</button>
 			</div>
 		</div>

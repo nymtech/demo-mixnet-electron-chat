@@ -136,13 +136,17 @@ class SocketConnection {
 	}
 
 	private handleClientsResponse(clientsDataRaw: any) {
-		if ($("#recipientSelector").hasClass("disabled")) {
-			$("#recipientSelector").removeClass("disabled");
-		}
+		// if ($("#recipientSelector").hasClass("disabled")) {
+		// 	$("#recipientSelector").removeClass("disabled");
+		// }
 
 		const availableClients = clientsDataRaw.clients;
+
+		console.log("received the following list of clients:", availableClients);
 		// update our current list
 		this.clients = availableClients;
+
+
 
 		const valuesArray = availableClients.map((client, idx) => {
 			return { name: formatDisplayedClient(client), value: idx };
@@ -168,7 +172,7 @@ class SocketConnection {
 			case "fetch": return this.handleFetchResponse(receivedData);
 			case "getClients": return this.handleClientsResponse(receivedData);
 			case "ownDetails":
-				this.ownDetails = receivedData.address
+				this.ownDetails = receivedData.address;
 				return this.displayOwnDetails(receivedData);
 
 			case "send": console.log("received send confirmation"); return;
