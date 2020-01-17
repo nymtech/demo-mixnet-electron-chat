@@ -16,18 +16,22 @@ function makeID(length: number): string {
 	}
 	let result = "";
 	const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-	for ( let i = 0; i < length; i++ ) {
-	   result += chars.charAt(Math.floor(Math.random() * chars.length));
+	for (let i = 0; i < length; i++) {
+		result += chars.charAt(Math.floor(Math.random() * chars.length));
 	}
 	return result;
- }
+}
 
 function nymClientBinary() {
-		switch (process.platform){
-			case "darwin": return "nym_client_osx";
-			case "linux": return "nym_client_linux";
-			case "win32": return "nym_client_windows";
-		}
+	switch (process.platform) {
+		case "darwin": return "nym_client_osx";
+		case "linux": return "nym_client_linux";
+		case "win32": return "nym_client_windows";
+	}
+}
+
+function sleep(ms: any) {
+	return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 async function onReady() {
@@ -80,7 +84,7 @@ async function onReady() {
 	console.log(["websocket", "--id", nymID, "--port", nymPort]);
 	const nymClient = execFile(
 		path.resolve(__dirname, nymClientBinary()),
-		["websocket", "--id", nymID, "--port", nymPort, "--local"], // TODO: #1
+		["websocket", "--id", nymID, "--port", nymPort], // TODO: #1
 		{},
 		(
 			(error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
@@ -94,11 +98,13 @@ async function onReady() {
 					}
 				}
 			}),
-		);
+	);
 
 	nymClient.on("error", (err: Error) => {
 		throw new Error(`Error when handling nym-mixnet-client: ${err}`);
 	});
+
+	await sleep(7500);
 
 	// listen for port requests from window we're about to spawn
 	ipcMain.once("port", (event) => {
@@ -139,19 +145,19 @@ app.on("ready", onReady);
 
 // Quit when all windows are closed.
 app.on("window-all-closed", () => {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== "darwin") {
-	app.quit();
-  }
+	// On OS X it is common for applications and their menu bar
+	// to stay active until the user quits explicitly with Cmd + Q
+	if (process.platform !== "darwin") {
+		app.quit();
+	}
 });
 
 app.on("activate", () => {
-  // On OS X it"s common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-	onReady();
-  }
+	// On OS X it"s common to re-create a window in the app when the
+	// dock icon is clicked and there are no other windows open.
+	if (mainWindow === null) {
+		onReady();
+	}
 });
 
 // In this file you can include the rest of your app"s specific main process
