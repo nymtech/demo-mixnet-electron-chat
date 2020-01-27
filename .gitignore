@@ -19,3 +19,4 @@ build
 cmd/chat-client/chat-client
 *.nymchat
 nym-mixnet
+yarn-error.log
