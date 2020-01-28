@@ -1,6 +1,5 @@
 import "semantic-ui-css/semantic.min.css"; // I don't even know... without it the LOCAL FILES would not properly get loaded
 const { ipcRenderer } = nodeRequire('electron')
-const base64url = nodeRequire('base64url');
 
 // can't use import instead of require/nodeRequire here, as it would be transpiled to 'require'
 // that is not defined on window due to being replaced by 'nodeRequire'.
@@ -125,8 +124,7 @@ class SocketConnection {
 		const messages = fetchData.messages;
 
 		for (const rawMsg of messages) {
-			let b64Decoded: string = base64url.decode(rawMsg);
-			const msg = JSON.parse(b64Decoded) as ElectronChatMessage;
+			const msg = JSON.parse(rawMsg) as ElectronChatMessage;
 
 			createChatMessage(
 				`??? - ${msg.senderPublicKey.substring(0, 8)}...`,
