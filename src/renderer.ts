@@ -134,9 +134,9 @@ class SocketConnection {
 	}
 
 	private handleClientsResponse(clientsDataRaw: any) {
-		// if ($("#recipientSelector").hasClass("disabled")) {
-		// 	$("#recipientSelector").removeClass("disabled");
-		// }
+		if ($("#recipientSelector").hasClass("disabled")) {
+			$("#recipientSelector").removeClass("disabled");
+		}
 
 		const availableClients = clientsDataRaw.clients;
 
