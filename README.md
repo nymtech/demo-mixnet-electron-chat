@@ -13,7 +13,9 @@ This is a simple chat application. You can start a few clients, and chat back an
 
 **Note: The application was only tested to be building and running on Linux.**
 
-From the top-level directory, `yarn install --production=false` will download all dependencies required to build the application. `yarn dist` will build a single binary that can be moved around. If you prefer to run everything locally,  `yarn build` will build the application without packaging it.
+`yarn dist` will build a single binary AppImage that can be moved around. 
+
+If you prefer to run everything locally, `yarn build` will build the application without packaging it.
 
 ## Running it
 
