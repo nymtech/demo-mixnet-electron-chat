@@ -33,7 +33,7 @@ When the app is started using the standalone binary, it can accept two optional 
 
 The first arguments allows you to supersede the nym client id being used. However, it is then your responsibility to ensure the appropriate keys and configuration file exist in `~/.nym`
 
-The second argument, which is expected to be a number between 1024 and 49151 will change the port used for websocket communcation of the electron application with the mixnet client. By default a random, open port is chosen.
+The second argument, which is expected to be a number between 1024 and 49151 will change the port used for websocket communication of the Electron application with the mixnet client. By default a random, open port is chosen.
 
 So for example, to run it with hardcoded id `Alice` on port `9001`, you would call it with: `./build/mixnet-electron-client-0.0.2.AppImage Alice 9001`.
 
