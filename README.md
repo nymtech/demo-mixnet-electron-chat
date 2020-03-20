@@ -27,8 +27,6 @@ By default it will look for the `savedID.nymchat` file in the directory from whi
 
 Otherwise, a random id will be generated and corresponding public/private keypairs will be created and stored on your local machine. If you want to see those, have a look in `~/.nym` - exact locations are noted upon keypair generation. The new `savedID.nymchat` will also be created.
 
-**Please do note, you should not start more than a single instance from the same directory unless you know exactly what you're doing.**
-
 ### Optional arguments
 
 When the app is started using the standalone binary, it can accept two optional arguments to adjust its default behaviour.
