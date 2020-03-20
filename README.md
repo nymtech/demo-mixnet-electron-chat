@@ -6,7 +6,6 @@ This is a simple chat application. You can start a few clients, and chat back an
 
 ## Requirements
 
-* Go 1.12 or later
 * Recent version of Node (tested to be working with v10.17.0)
 * yarn package manager (or equivalent, such as npm)
 
