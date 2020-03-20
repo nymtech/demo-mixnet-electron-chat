@@ -19,7 +19,8 @@ If you prefer to run everything locally, `yarn build` will build the application
 
 ## Running it
 
-If you packaged the app, starting it is as simple as running the created binary: `./build/mixnet-electron-client-0.0.2.AppImage`. Otherwise if you used `yarn build`, you need to call `yarn start` now.
+If you packaged the app, starting it is as simple as running the created binary: `./build/mixnet-electron-client-0.5.0.AppImage`.
+
 
 By default it will look for the `savedID.nymchat` file in the directory from which the application was run. If it exists, the specified id will be used to lookup public/private mixnet keypairs on your local machine.
 
