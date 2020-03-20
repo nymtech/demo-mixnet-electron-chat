@@ -27,6 +27,7 @@ function nymClientBinary() {
 		case "darwin": return "nym_client_osx";
 		case "linux": return "nym_client_linux";
 		case "win32": return "nym_client_windows";
+		default: throw Error("Could not detect operating system type.");
 	}
 }
 
