@@ -84,7 +84,7 @@ async function onReady() {
 	console.log(["websocket", "--id", nymID, "--port", nymPort]);
 	const nymClient = execFile(
 		path.resolve(__dirname, nymClientBinary()),
-		["run", "--id", nymID, "--port", nymPort], // TODO: #1
+		["websocket", "--id", nymID, "--port", nymPort], // TODO: #1
 		{},
 		(
 			(error: Error | null, stdout: string | Buffer, stderr: string | Buffer) => {
