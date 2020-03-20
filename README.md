@@ -6,8 +6,8 @@ This is a simple chat application. You can start a few clients, and chat back an
 
 ## Requirements
 
-* Recent version of Node (tested to be working with v10.17.0)
-* yarn package manager (or equivalent, such as npm)
+* **node** v10.17.0 - newer versions may work but that's what we've tested
+* **yarn** package manager
 
 ## Building it
 
