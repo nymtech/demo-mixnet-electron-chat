@@ -38,7 +38,7 @@
   "repository": "https://github.com/nymtech/demo-mixnet-chat-client",
   "license": "Apache-2.0",
   "devDependencies": {
-    "electron": "^7.0.0",
+    "electron": "^7.2.4",
     "electron-builder": "^21.2.0",
     "tslint": "^5.20.0",
     "tslint-config-standard": "^8.0.1",
